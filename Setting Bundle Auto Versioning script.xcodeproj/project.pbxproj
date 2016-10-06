@@ -13,6 +13,7 @@
 		27E30FB61DA6820D0083557D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E30FB41DA6820D0083557D /* Main.storyboard */; };
 		27E30FB81DA6820D0083557D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27E30FB71DA6820D0083557D /* Assets.xcassets */; };
 		27E30FBB1DA6820D0083557D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E30FB91DA6820D0083557D /* LaunchScreen.storyboard */; };
+		27E30FC31DA6823F0083557D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27E30FC21DA6823F0083557D /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		27E30FB71DA6820D0083557D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27E30FBA1DA6820D0083557D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27E30FBC1DA6820D0083557D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27E30FC21DA6823F0083557D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 		27E30F9F1DA6820D0083557D = {
 			isa = PBXGroup;
 			children = (
+				27E30FC21DA6823F0083557D /* Settings.bundle */,
 				27E30FAA1DA6820D0083557D /* Setting Bundle Auto Versioning script */,
 				27E30FA91DA6820D0083557D /* Products */,
 			);
@@ -86,6 +89,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27E30FBF1DA6820D0083557D /* Build configuration list for PBXNativeTarget "Setting Bundle Auto Versioning script" */;
 			buildPhases = (
+				27E30FC41DA682460083557D /* ShellScript */,
 				27E30FA41DA6820D0083557D /* Sources */,
 				27E30FA51DA6820D0083557D /* Frameworks */,
 				27E30FA61DA6820D0083557D /* Resources */,
@@ -138,6 +142,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27E30FC31DA6823F0083557D /* Settings.bundle in Resources */,
 				27E30FBB1DA6820D0083557D /* LaunchScreen.storyboard in Resources */,
 				27E30FB81DA6820D0083557D /* Assets.xcassets in Resources */,
 				27E30FB61DA6820D0083557D /* Main.storyboard in Resources */,
@@ -145,6 +150,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		27E30FC41DA682460083557D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#This run script must be below target dependencies\n#setting bundle file tat with .xcodepro\n\nversion=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"$INFOPLIST_FILE\")\nbuild=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\n\nversion+=\" (\"\nversion+=$build\nversion+=\")\"\n\n#/usr/libexec/PlistBuddy -c \"Set PreferenceSpecifiers:2:DefaultValue $build\" Settings.bundle/Root.plist\n/usr/libexec/PlistBuddy -c \"Set PreferenceSpecifiers:1:DefaultValue $version\" Settings.bundle/Root.plist";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		27E30FA41DA6820D0083557D /* Sources */ = {
